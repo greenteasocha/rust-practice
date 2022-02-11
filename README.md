@@ -1,1 +1,1 @@
-<img src="/hitblow.gif" width="100">
+<img src="/hitblow.gif" width="400">
