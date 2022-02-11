@@ -1,0 +1,54 @@
+abe@DESKTOP-2VT997P:~/projects/202201/rust/hit_and_brow$ cargo run
+   Compiling hit_and_brow v0.1.0 (/home/abe/projects/202201/rust/hit_and_brow)
+warning: cannot borrow `counts` as mutable because it is also borrowed as immutable
+  --> src/main.rs:90:25
+   |
+86 |             match counts.get(c) {
+   |                   ------------- immutable borrow occurs here
+...
+90 |                         counts.insert(*c, res - 1);
+   |                         ^^^^^^^^^^^^^^^^^^---^^^^^
+   |                         |                 |
+   |                         |                 immutable borrow later used here
+   |                         mutable borrow occurs here
+   |
+   = note: `#[warn(mutable_borrow_reservation_conflict)]` on by default
+   = warning: this borrowing pattern was not meant to be accepted, and may become a hard error in the future
+   = note: for more information, see issue #59159 <https://github.com/rust-lang/rust/issues/59159>
+
+warning: `hit_and_brow` (bin "hit_and_brow") generated 1 warning
+    Finished dev [unoptimized + debuginfo] target(s) in 4.68s
+     Running `target/debug/hit_and_brow`
+
+=============================================================================
+code:
+match counts.get_mut(c) {
+                Some(res) => {
+                    if *res > 0 {
+                        blow += 1;
+                        *res += 1;
+                    }
+                }
+                None => (),
+            }
+
+
+
+abe@DESKTOP-2VT997P:~/projects/202201/rust/hit_and_brow$ cargo run
+   Compiling hit_and_brow v0.1.0 (/home/abe/projects/202201/rust/hit_and_brow)
+error[E0499]: cannot borrow `counts` as mutable more than once at a time
+  --> src/main.rs:90:25
+   |
+86 |             match counts.get_mut(c) {
+   |                   ----------------- first mutable borrow occurs here
+...
+90 |                         counts.insert(*c, *res - 1);
+   |                         ^^^^^^^^^^^^^^^^^^----^^^^^
+   |                         |                 |
+   |                         |                 first borrow later used here
+   |                         second mutable borrow occurs here
+
+For more information about this error, try `rustc --explain E0499`.
+error: could not compile `hit_and_brow` due to previous error
+
+=============================================================================
