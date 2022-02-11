@@ -1,38 +1,9 @@
-#![allow(unused_imports)]
-#![allow(dead_code)]
 use rand::Rng;
 use std::collections::HashMap;
 use std::io;
 
-use core::any::type_name;
-
 fn main() {
     game();
-}
-
-fn type_of<T>(_: T) -> &'static str {
-    type_name::<T>()
-}
-
-fn debug() {
-    let mut counts: HashMap<String, u32> = HashMap::new();
-    counts.insert('a'.to_string(), 100);
-
-    match counts.get(&'a'.to_string()) {
-        Some(res) => {
-            println!("{}", res);
-        }
-        None => (),
-    }
-
-    counts.insert('a'.to_string(), 200);
-
-    match counts.get(&'a'.to_string()) {
-        Some(res) => {
-            println!("{}", res);
-        }
-        None => (),
-    }
 }
 
 fn game() {
@@ -40,15 +11,9 @@ fn game() {
     let secret_number: u32 = rand::thread_rng().gen_range(1, 10001);
     let secret_number = format!("{:04}", secret_number);
     let secret_cs: Vec<char> = secret_number.chars().collect();
-    // for c in sec_cs {
-    //     println!("{}", c.to_string());
-    // }
-    println!("{}", secret_number);
 
-    // prepareing game components
-
-    // let mut hit: u32 = 0;
-    // let mut blow: u32 = 0;
+    // easy mode
+    println!("Secret Number is: {}", secret_number);
 
     // game loop
     loop {
